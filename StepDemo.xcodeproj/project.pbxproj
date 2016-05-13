@@ -15,6 +15,7 @@
 		5E2290E61CE5F70B007788BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5E2290E41CE5F70B007788BA /* LaunchScreen.storyboard */; };
 		5E2290F11CE5F70B007788BA /* StepDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2290F01CE5F70B007788BA /* StepDemoTests.m */; };
 		5E2290FC1CE5F70B007788BA /* StepDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5E2290FB1CE5F70B007788BA /* StepDemoUITests.m */; };
+		5E22910A1CE5F71C007788BA /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E2291091CE5F71C007788BA /* HealthKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		5E2290F71CE5F70B007788BA /* StepDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StepDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E2290FB1CE5F70B007788BA /* StepDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StepDemoUITests.m; sourceTree = "<group>"; };
 		5E2290FD1CE5F70B007788BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5E2291091CE5F71C007788BA /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		5E22910B1CE5F71C007788BA /* StepDemo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StepDemo.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5E22910A1CE5F71C007788BA /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +85,7 @@
 		5E2290CA1CE5F70B007788BA = {
 			isa = PBXGroup;
 			children = (
+				5E2291091CE5F71C007788BA /* HealthKit.framework */,
 				5E2290D51CE5F70B007788BA /* StepDemo */,
 				5E2290EF1CE5F70B007788BA /* StepDemoTests */,
 				5E2290FA1CE5F70B007788BA /* StepDemoUITests */,
@@ -101,6 +106,7 @@
 		5E2290D51CE5F70B007788BA /* StepDemo */ = {
 			isa = PBXGroup;
 			children = (
+				5E22910B1CE5F71C007788BA /* StepDemo.entitlements */,
 				5E2290D91CE5F70B007788BA /* AppDelegate.h */,
 				5E2290DA1CE5F70B007788BA /* AppDelegate.m */,
 				5E2290DC1CE5F70B007788BA /* ViewController.h */,
@@ -207,6 +213,12 @@
 				TargetAttributes = {
 					5E2290D21CE5F70B007788BA = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = SZGUFKA88Z;
+						SystemCapabilities = {
+							com.apple.HealthKit = {
+								enabled = 1;
+							};
+						};
 					};
 					5E2290EB1CE5F70B007788BA = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -411,10 +423,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = StepDemo/StepDemo.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = StepDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sbyy.StepDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -422,10 +438,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = StepDemo/StepDemo.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = StepDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sbyy.StepDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
