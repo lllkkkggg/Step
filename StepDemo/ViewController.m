@@ -10,6 +10,10 @@
 #import <HealthKit/HealthKit.h>
 
 #define maxCount 15//一秒钟最多刷新的次数
+#define KDEVICEHEIGHT ([UIScreen mainScreen].bounds.size.height)
+#define KDEVICEWIDTH ([UIScreen mainScreen].bounds.size.width)
+#define A_WIDTH ([UIScreen mainScreen].bounds.size.width/320)
+#define B_HIGHT ([UIScreen mainScreen].bounds.size.height/568)
 
 @interface ViewController ()
 
@@ -28,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    self.title = @"步数";
+    [self configShowView];
     if (![HKHealthStore isHealthDataAvailable])
     {
         UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"提示:" message:@"当前设备不支持从健康应用获取步数" preferredStyle:UIAlertControllerStyleAlert];
@@ -68,7 +72,54 @@
     [_timer invalidate];
     _timer = nil;
 }
-
+-(void)configShowView
+{
+    _view1 = [[UIView alloc]initWithFrame:CGRectMake(20*A_WIDTH, 90*B_HIGHT, KDEVICEWIDTH- 40*A_WIDTH,240*B_HIGHT)];
+    _view1.backgroundColor = [UIColor whiteColor];
+    _view1.layer.cornerRadius = 5;
+    _view1.layer.masksToBounds = YES;
+    CAShapeLayer *layer = [CAShapeLayer layer];
+    layer.bounds = CGRectMake(0, 0, 200*B_HIGHT, 200*B_HIGHT);
+    layer.position = CGPointMake(_view1.frame.size.width/2, 120*B_HIGHT);
+    layer.path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(100*B_HIGHT, 100*B_HIGHT)
+                                                radius:100*B_HIGHT
+                                            startAngle:-(M_PI+M_PI_4)
+                                              endAngle:M_PI_4
+                                             clockwise:YES].CGPath;
+    layer.strokeStart = 0;
+    layer.strokeEnd = 1;
+    layer.strokeColor = [UIColor grayColor].CGColor;
+    layer.fillColor = [UIColor clearColor].CGColor;
+    layer.lineWidth = 10;
+    layer.lineCap = @"round";
+    [_view1.layer addSublayer:layer];
+    
+    _myLayer = [CAShapeLayer layer];
+    _myLayer.bounds = CGRectMake(0, 0, 200*B_HIGHT, 200*B_HIGHT);
+    _myLayer.position = CGPointMake(_view1.frame.size.width/2, 120*B_HIGHT);
+    _myLayer.path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(100*B_HIGHT, 100*B_HIGHT)
+                                                   radius:100*B_HIGHT
+                                               startAngle:-(M_PI+M_PI_4)
+                                                 endAngle:M_PI_4
+                                                clockwise:YES].CGPath;    _myLayer.strokeStart = 0;
+    _myLayer.strokeEnd = 0;
+    _myLayer.strokeColor = [self colorWithHex:0x00b9bb alpha:1].CGColor;
+    _myLayer.fillColor = [UIColor clearColor].CGColor;
+    _myLayer.lineWidth = 10;
+    _myLayer.lineCap = @"round";
+    [_view1.layer addSublayer:_myLayer];
+    
+    CGSize strSize = [@"122" sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:25]}];
+    _textLayer= [CATextLayer layer];
+    _textLayer.bounds = CGRectMake(0, 0, strSize.width, strSize.height);
+    _textLayer.position = CGPointMake(_view1.frame.size.width/2, 120*B_HIGHT);
+    _textLayer.string = @"122";
+    _textLayer.fontSize = 25;
+    _textLayer.foregroundColor = [UIColor blackColor].CGColor;
+    [_view1.layer addSublayer:_textLayer];
+    
+    [self.view addSubview:_view1];
+}
 
 //获取当天步数
 -(void)readStepsCount
@@ -118,4 +169,13 @@
     }
 }
 
+
+
+- (UIColor *)colorWithHex:(long)hexColor alpha:(float)opacity
+{
+    float red = ((float)((hexColor & 0xFF0000) >> 16))/255.0;
+    float green = ((float)((hexColor & 0xFF00) >> 8))/255.0;
+    float blue = ((float)(hexColor & 0xFF))/255.0;
+    return [UIColor colorWithRed:red green:green blue:blue alpha:opacity];
+}
 @end
